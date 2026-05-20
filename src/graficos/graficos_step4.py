@@ -11,7 +11,7 @@ OUTPUT_DIR = 'imgs'
 ATRIBUTOS = ['atributo_2', 'atributo_4', 'atributo_5']
 
 # Parâmetros FCM
-FUZZIFIER_M = 2.0
+FUZZIFIER_M = 1.5
 ERROR_TOLERANCE = 0.005
 MAX_ITER = 1000
 
