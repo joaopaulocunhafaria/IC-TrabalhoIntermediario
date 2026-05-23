@@ -106,6 +106,42 @@ acuracia = accuracy_score(y_val, predicoes_mamdani)
 plt.suptitle(f'Desempenho do Modelo Mamdani (Atributos 2, 4 e 5)\nAcurácia Global: {acuracia:.4f}', fontsize=14)
 
 plt.tight_layout()
-caminho_saida = 'imgs/ajuste_modelo_mamdani.png'
+caminho_saida = 'imgs/Mamdani/ajuste_modelo_mamdani.png'
 plt.savefig(caminho_saida)
 print(f"Gráfico salvo com sucesso em: {caminho_saida}")
+
+print("Gerando gráfico das funções de pertinência por atributo...")
+fig_mf, axes = plt.subplots(3, 2, figsize=(15, 12))
+axes = axes.flatten()
+
+x_range = np.linspace(-3, 3, 200) 
+
+for i, col in enumerate(colunas_entrada):
+    # Criamos um conjunto de dados sintético:
+    # Variamos o atributo 'i' e mantemos os outros em 0 (média dos dados padronizados)
+    X_sintetico = np.zeros((len(x_range), len(colunas_entrada)))
+    X_sintetico[:, i] = x_range
+    
+    # Calculamos a pertinência desses pontos aos clusters existentes
+    # Nota: usamos os centros já treinados e o m_fuzzy definido no script
+    u_sintetico, _, _, _, _, _ = fuzzy.cluster.cmeans_predict(
+        X_sintetico.T, centros, m=m_fuzzy, error=tol_erro, maxiter=iter_max
+    )
+    
+    # Plotamos as curvas de pertinência para cada cluster (que representa uma regra)
+    for j in range(n_clusters):
+        axes[i].plot(x_range, u_sintetico[j, :], label=f'Cluster {j+1}', linewidth=2)
+    
+    axes[i].set_title(f'Funções de Pertinência: {col}', fontsize=12)
+    axes[i].set_xlabel('Valor Padronizado')
+    axes[i].set_ylabel('Grau de Pertinência ($\mu$)')
+    axes[i].set_ylim(-0.05, 1.05)
+    axes[i].grid(True, linestyle='--', alpha=0.6)
+    if i == 0:
+        axes[i].legend()
+
+plt.suptitle('Funções de Pertinência Mamdani (Baseadas em FCM)', fontsize=16)
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+caminho_mf = 'imgs/Mamdani/funcoes_pertinencia_mamdani.png'
+plt.savefig(caminho_mf)
+print(f"Gráfico de funções de pertinência salvo em: {caminho_mf}")
