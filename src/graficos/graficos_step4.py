@@ -8,7 +8,7 @@ from sklearn.metrics import silhouette_score
 # Configurações
 INPUT_FILE = 'output/base_treino.csv'
 OUTPUT_DIR = 'imgs'
-ATRIBUTOS = ['atributo_2', 'atributo_4', 'atributo_5']
+ATRIBUTOS = ['atributo_1', 'atributo_2', 'atributo_3', 'atributo_4', 'atributo_5', 'atributo_6']
 
 # Parâmetros FCM
 FUZZIFIER_M = 1.5
@@ -39,9 +39,6 @@ def generate_graphics():
         
         cluster_labels = np.argmax(u, axis=0)
         
-        # Calcular Silhouette Score
-        score = silhouette_score(X, cluster_labels)
-        silhouette_avg.append(score)
 
     # Curva FPC
     plt.figure(figsize=(8, 5))
@@ -54,16 +51,6 @@ def generate_graphics():
     plt.close()
     print("-> Gráfico 'curva_fpc.png' salvo em imgs/")
 
-    # Gráfico do Método da Silhouette 
-    plt.figure(figsize=(8, 5))
-    plt.plot(range_n_clusters, silhouette_avg, marker='s', linestyle='-', color='green')
-    plt.title('Método da Silhouette (Validação do Agrupamento)')
-    plt.xlabel('Número de Clusters (c)')
-    plt.ylabel('Silhouette Score Médio')
-    plt.grid(True)
-    plt.savefig(os.path.join(OUTPUT_DIR, 'metodo_silhouette.png'))
-    plt.close()
-    print("-> Gráfico 'metodo_silhouette.png' salvo em imgs/")
 
     # Gráfico de Perfil dos Centros (para c=4) 
     print("Gerando Perfil dos Centros (para c=4)...")

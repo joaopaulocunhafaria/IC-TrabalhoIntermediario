@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import skfuzzy as fuzzy
 from scipy.spatial.distance import cdist
 
+# constantes
 N_CLUSTERS = 4           
 FUZZIFIER_M = 1.5      
 ERROR_TOLERANCE = 0.005 
@@ -19,10 +20,10 @@ atributos_selecionados = ['atributo_1', 'atributo_2', 'atributo_3', 'atributo_4'
 X_train = df_treino[atributos_selecionados].values
 X_train_transposto = X_train.T 
 
-print("2. CalculandoCentros Iniciais...")
+print("Calculando Centros Iniciais")
 centros_iniciais = df_treino.groupby('classe')[atributos_selecionados].mean().values
 
-print("3. Gerando matriz de pertinência inicial (u0) baseada em distâncias...")
+print("\n Gerando matriz de pertinência inicial (u0) baseada em distâncias...")
 
 distancias = cdist(X_train, centros_iniciais, metric='euclidean')
 distancias = np.fmax(distancias, np.finfo(np.float64).eps)
@@ -31,7 +32,7 @@ prep_u0 = distancias ** (-2 / (FUZZIFIER_M - 1))
 u0_inicial = (prep_u0.T / prep_u0.sum(axis=1)).T
 u0_transposto = u0_inicial.T
 
-print(f"4. Executando o Fuzzy C-Means (Semi-Supervisionado) com sementes...")
+print(f"\nExecutando o Fuzzy C-Means ")
 cntr, u, u0_final, d, jm, p, fpc = fuzzy.cluster.cmeans(
     X_train_transposto, 
     c=N_CLUSTERS, 
@@ -47,14 +48,11 @@ print("Centros salvos em 'output/centros.npy'")
 
 cluster_treino_predito = np.argmax(u, axis=0)
 
-print("\n" + "="*60)
-print("             MÉTRICAS E ANÁLISE DE CONFIABILIDADE")
-print("="*60)
-
+print("-" * 60)
 print(f"Coeficiente de Partição Fuzzy (FPC): {fpc:.4f}")
 print("-" * 60)
 
-print("5. Validando consistência externa com a planilha de validação (20%)...")
+print("Validando consistência externa com a planilha de validação (20%)...")
 X_val = df_validacao[atributos_selecionados].values
 X_val_transposto = X_val.T
 
@@ -78,12 +76,11 @@ print(matriz_cruzada)
 
 from sklearn.metrics import accuracy_score, classification_report
 acuracia = accuracy_score(df_analise_val['Classe_Real'], df_analise_val['Cluster_FCM'])
-print(f"\nAcurácia do Modelo: {acuracia:.4f}")
+print(f"\nConsistência entre clusters e classes reais: {acuracia:.4f}")
 print("\nRelatório de Classificação:")
 print(classification_report(df_analise_val['Classe_Real'], df_analise_val['Cluster_FCM']))
 
 print("-" * 60)
-print("6. Renderizando gráfico 3D da distribuição de treino...")
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
 

@@ -11,7 +11,7 @@ df_reduzido = df[atributos_selecionados + ['classe']]
 # Divisão em Treino (80%) e Teste (20%)
 df_treino, df_teste = train_test_split(df_reduzido, test_size=0.20, random_state=42)
 
-# Conjunto 1: Treino com a classe para sementes de conhecimento (Centros Iniciais)
+# Conjunto 1: Treino com a classe para centros iniciais
 df_treino.to_csv('output/base_treino.csv', index=False)
 
 # Conjunto 2: O conjunto de 20% isolado com a classe para validação 
