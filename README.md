@@ -66,7 +66,7 @@ Caso deseje executar ou testar etapas específicas, você pode rodar os arquivos
 # Autores
 
 <p>
-  João Paulo da Cunha Faria - Graduando em Engenharia da Computação pelo <a href="https://www.cefetmg.br" target="_blank">CEFET-MG</a>. Contato: (<a href="mailto:joao.cruz@aluno.cefetmg.br">joao@aluno.cefetmg.br</a>)
+  João Paulo da Cunha Faria - Graduando em Engenharia da Computação pelo <a href="https://www.cefetmg.br" target="_blank">CEFET-MG</a>. Contato: (<a href="mailto:joao@aluno.cefetmg.br">joao@aluno.cefetmg.br</a>)
 </p>
 
 <p>
