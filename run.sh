@@ -6,6 +6,15 @@
 set -e # Interrompe a execução em caso de erro
 
 
+# Criar ambiente virtual se não existir
+if [ ! -d "venv" ]; then
+    echo "Criando ambiente virtual..."
+    python3 -m venv venv
+fi
+
+# Ativar ambiente virtual
+source venv/bin/activate
+
 echo -e "\n[Passo Inicial] Instalando dependências..."
 pip install -r requirements.txt --quiet
 
