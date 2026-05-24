@@ -48,10 +48,6 @@ print("Centros salvos em 'output/centros.npy'")
 
 cluster_treino_predito = np.argmax(u, axis=0)
 
-print("-" * 60)
-print(f"Coeficiente de Partição Fuzzy (FPC): {fpc:.4f}")
-print("-" * 60)
-
 print("Validando consistência externa com a planilha de validação (20%)...")
 X_val = df_validacao[atributos_selecionados].values
 X_val_transposto = X_val.T
@@ -77,10 +73,8 @@ print(matriz_cruzada)
 from sklearn.metrics import accuracy_score, classification_report
 acuracia = accuracy_score(df_analise_val['Classe_Real'], df_analise_val['Cluster_FCM'])
 print(f"\nConsistência entre clusters e classes reais: {acuracia:.4f}")
-print("\nRelatório de Classificação:")
-print(classification_report(df_analise_val['Classe_Real'], df_analise_val['Cluster_FCM']))
 
-print("-" * 60)
+
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
 
