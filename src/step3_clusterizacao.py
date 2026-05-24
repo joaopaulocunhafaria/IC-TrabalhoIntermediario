@@ -6,7 +6,7 @@ from scipy.spatial.distance import cdist
 
 # constantes
 N_CLUSTERS = 4           
-FUZZIFIER_M = 1.5      
+FUZZIFIER_M = 2   
 ERROR_TOLERANCE = 0.005 
 MAX_ITER = 1000         
 
