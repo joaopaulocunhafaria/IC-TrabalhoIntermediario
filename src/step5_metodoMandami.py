@@ -28,7 +28,7 @@ X_val = validacao[colunas_entrada].values
 y_val = validacao['classe'].values
 
 # constantes
-m_fuzzy = 2.0 # Ajustado para 2.0 conforme mencionado na Metodologia do main.tex
+m_fuzzy = 2.0 
 tol_erro = 0.005
 iter_max = 1000
 
@@ -113,7 +113,6 @@ print(f"Acurácia Global: {acuracia:.4f}")
 print("\nRelatório de Classificação:")
 print(classification_report(y_val, predicoes_finais))
 
-# --- Geração da Matriz de Confusão Visual ---
 print("\nGerando Matriz de Confusão visual...")
 cm = confusion_matrix(y_val, predicoes_finais)
 
@@ -125,7 +124,6 @@ plt.title(f'Matriz de Confusão - Modelo Mamdani\n(Acurácia: {acuracia:.4f})', 
 plt.xlabel('Classe Predita', fontsize=12, fontweight='bold')
 plt.ylabel('Classe Real', fontsize=12, fontweight='bold')
 
-# Garantir que o diretório existe
 os.makedirs('imgs/Mamdani', exist_ok=True)
 output_cm_path = 'imgs/Mamdani/matriz_confusao_mamdani.png'
 plt.savefig(output_cm_path, dpi=300, bbox_inches='tight')

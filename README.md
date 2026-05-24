@@ -1,9 +1,9 @@
 # Trabalho Intermediário de Inteligência Computacional
 
 ## Introdução
-Este projeto consiste na implementação e comparação de modelos de inferência fuzzy para um problema de classificação baseado em uma base de dados sintética. O trabalho aborda desde a análise exploratória e pré-processamento dos dados até a aplicação de técnicas de clusterização **Fuzzy C-Means (FCM)** e a construção de modelos de lógica fuzzy dos tipos **Takagi-Sugeno-Kang (TSK)** e **Mamdani**.
+Este projeto consiste na implementação e comparação de modelos de inferência fuzzy para um problema de classificação baseado em uma base de dados sintética. O trabalho aborda desde a análise exploratória e pré-processamento dos dados até a aplicação de técnicas de clusterização **Fuzzy C-Means (FCM)** e a construção de modelos de lógica fuzzy do tipo **Mamdani**.
 
-O objetivo principal é extrair regras de inferência a partir da topologia dos dados (clusters) e avaliar a capacidade desses modelos em classificar corretamente amostras de validação, comparando a precisão entre as abordagens de funções de saída lineares (TSK) e linguísticas/predominantes (Mamdani).
+O objetivo principal é extrair regras de inferência a partir da topologia dos dados (clusters) e avaliar a capacidade desses modelos em classificar corretamente amostras de validação.
 
 ## Estrutura do Projeto
 A organização do repositório reflete as etapas do pipeline de desenvolvimento:
@@ -46,6 +46,7 @@ Caso prefira, pode instalar as dependências também rodando o próximo passo.
 ### Usando o script automatizado
 A forma mais simples de rodar todo o pipeline (da instalação das dependências à inferência) é através do script `run.sh`:
 ```bash
+chmod +x run.sh
 ./run.sh
 ```
 

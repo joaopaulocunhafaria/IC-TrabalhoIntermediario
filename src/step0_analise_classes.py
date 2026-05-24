@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# 1. Carregamento dos dados
+#  Carregamento dos dados
 df = pd.read_csv('data/base_sintetica_media.csv')
 
-# 2. Análise de classes
+# Análise de classes
 classes = sorted(df['classe'].unique())
 num_classes = len(classes)
 total_registros = len(df)
@@ -32,7 +32,6 @@ print(f"Total de registros: {total_registros:,}")
 print(f"Tamanho do dataset: {dimensoes}")
 print("=" * 60)
 
-# 3. Geração da Visualização (Referência: imgs/descrica_conjunto_dados.png)
 plt.rcParams['font.family'] = 'sans-serif'
 fig, (ax_table, ax_chart) = plt.subplots(1, 2, figsize=(16, 8), gridspec_kw={'width_ratios': [1, 1.2]})
 fig.patch.set_facecolor('#f0f4f7')
@@ -41,10 +40,10 @@ fig.patch.set_facecolor('#f0f4f7')
 fig.suptitle('RESUMO ESTATÍSTICO E DISTRIBUIÇÃO DO CONJUNTO DE DADOS', 
              fontsize=20, fontweight='bold', color='#003366', y=0.96)
 
-# --- Lado Esquerdo: Resumo e Tabela ---
+
 ax_table.axis('off')
 
-# Caixa de Resumo de Texto (Posicionada no topo)
+
 resumo_texto = (
     f"Registros Totais: {total_registros:,}\n"
     f"Número de Classes: {num_classes}\n"
@@ -53,7 +52,6 @@ resumo_texto = (
 ax_table.text(0.05, 0.95, resumo_texto, fontsize=14, verticalalignment='top', fontweight='bold',
               bbox=dict(facecolor='white', edgecolor='#003366', boxstyle='round,pad=1'))
 
-# Título da Tabela (Posicionado abaixo do card)
 ax_table.text(0.05, 0.72, "TABELA I. DISTRIBUIÇÃO DETALHADA POR CLASSE", 
               fontsize=13, fontweight='bold', color='#003366', verticalalignment='top')
 
@@ -67,7 +65,6 @@ tabela_data.append(["", "Total (Soma):", f"{total_registros:,}", "100.00%"])
 
 col_labels = ["nº", "Identificador\nda Classe", "Quantidade\nde Registros", "Proporção\n(%)"]
 
-# Criando a tabela com posicionamento explícito via bbox para evitar sobreposição [left, bottom, width, height]
 table = ax_table.table(cellText=tabela_data, colLabels=col_labels, cellLoc='center',
                        bbox=[0.05, 0.1, 0.9, 0.55]) 
 table.auto_set_font_size(False)
@@ -81,14 +78,11 @@ for (row, col), cell in table.get_celld().items():
     if row == len(tabela_data):
         cell.set_text_props(weight='bold')
 
-# --- Lado Direito: Gráfico de Barras ---
-# Cores similares à imagem de referência
-# Azul escuro para as classes majoritárias (30%) e cinza-azulado para a minoritária (10%)
+
 colors = ['#2b577a' if prop > 15 else '#7b8da1' for prop in proporcoes.values]
 
 sns.barplot(x=distribuicao.index.astype(int), y=proporcoes.values, palette=colors, ax=ax_chart, edgecolor='black')
 
-# Adicionando os rótulos de porcentagem no topo das barras
 for i, p in enumerate(ax_chart.patches):
     ax_chart.annotate(f'{proporcoes.values[i]:.2f}%', 
                       (p.get_x() + p.get_width() / 2., p.get_height()), 
@@ -103,13 +97,11 @@ ax_chart.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{int(x)}%'))
 ax_chart.grid(axis='y', linestyle='--', alpha=0.5)
 ax_chart.set_facecolor('white')
 
-# Rodapé
 plt.figtext(0.05, 0.03, "*Observação: Os dados foram processados de forma consolidada e analítica.*", 
             fontsize=10, style='italic', color='#333333')
 
 plt.tight_layout(rect=[0, 0.05, 1, 0.92])
 
-# Salvando a imagem final
 if not os.path.exists('imgs'):
     os.makedirs('imgs')
 

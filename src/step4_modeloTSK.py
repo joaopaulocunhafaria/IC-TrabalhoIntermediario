@@ -72,7 +72,6 @@ for i in range(n_regras):
     print(desc_regra)
 print("-" * 60)
 
-# --- Inferência e Validação ---
 print("\nTestando o modelo na base de validação...")
 u_val, _, _, _, _, _ = fuzzy.cluster.cmeans_predict(
     X_val.T, centros, m=m_fuzzy, error=tol_erro, maxiter=iter_max
@@ -97,11 +96,10 @@ for k in range(X_val.shape[0]):
 
 saidas_continuas = np.array(saidas_continuas)
 
-# Converte a saída contínua para classe (arredondamento)
+# Converte a saída contínua para classe 
 predicoes_classes = np.round(saidas_continuas).astype(int)
-predicoes_classes = np.clip(predicoes_classes, 1, 4) # Garante que fique no range 1-4
+predicoes_classes = np.clip(predicoes_classes, 1, 4) 
 
-# --- Avaliação Final ---
 print("\n" + "="*60)
 print("DESEMPENHO DO MODELO TAKAGI-SUGENO")
 print("="*60)
